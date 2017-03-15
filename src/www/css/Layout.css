@@ -1,0 +1,16 @@
+.contentLayout {
+  max-width: 40rem;
+  padding: 0 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: 48rem) {
+    padding: 0;
+  }
+}
+
+.imageLayout {
+  max-width: 70.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,12 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 8em 0 0;
+
+  @media (min-width: 48em) {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}

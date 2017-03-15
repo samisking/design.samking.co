@@ -1,0 +1,30 @@
+.project {
+  display: block;
+
+  & + & {
+    margin-top: 2em;
+  }
+}
+
+.image {
+  display: block;
+  margin-bottom: 1em;
+  transition: transform 150ms ease;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+}
+
+.title, .subtitle {
+  display: block;
+}
+
+.title {
+  margin-bottom: 0;
+  display: inline;
+}
+
+.subtitle {
+  composes: light from '../../css/Typography.css';
+}

@@ -1,0 +1,44 @@
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  z-index: 100;
+  transition: transform 300ms ease-in-out;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-1px);
+
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 50%;
+    background: #0366d6;
+    background: linear-gradient(to right, rgba(0,0,0,0), #0366d6, rgba(0,0,0,0));
+    transition: box-shadow 150ms ease;
+    animation: slide 500ms linear infinite;
+  }
+}
+
+.bar_loading {
+  composes: bar;
+  transform: translateY(0);
+
+  &:before {
+    box-shadow: 0 0 3em 0 rgba(3, 102, 214, 0.5);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}

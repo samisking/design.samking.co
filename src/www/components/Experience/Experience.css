@@ -1,0 +1,39 @@
+.job {
+  & + & {
+    margin-top: 2em;
+  }
+}
+
+.title {
+  composes: noHash from '../../css/Typography.css';
+  margin-bottom: 0.5em;
+}
+
+.date,
+.at {
+  color: #858892;
+  font-weight: normal;
+}
+
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.point {
+  position: relative;
+  padding-left: 1em;
+
+  &:before {
+    content: '–';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #858892;
+  }
+
+  & + & {
+    margin-top: 0.5em;
+  }
+}

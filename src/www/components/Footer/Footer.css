@@ -1,0 +1,10 @@
+.footer {
+  composes: contentLayout from '../../css/Layout.css';
+  width: 100%;
+  margin-top: 6em;
+  padding-bottom: 2em;
+}
+
+.copy {
+  composes: small light from '../../css/Typography.css';
+}

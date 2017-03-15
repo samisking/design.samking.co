@@ -1,0 +1,84 @@
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1.6;
+  margin: 0 0 0.75em 0;
+  max-width: 40em;
+
+  p + & {
+    margin-top: 2em;
+  }
+}
+
+h1 {
+  font-size: 1.2em;
+}
+
+h2 {
+  font-size: 1.1em;
+}
+
+/*h1:before {
+  content: '# ';
+}
+
+h2:before {
+  content: '## ';
+}
+
+h3:before {
+  content: '### ';
+}
+
+h4:before {
+  content: '#### ';
+}
+
+h5:before {
+  content: '##### ';
+}
+
+h6:before {
+  content: '###### ';
+}*/
+
+.noHash {
+  &:before {
+    content: '';
+  }
+}
+
+p {
+  margin: 0;
+  max-width: 40em;
+
+  & + & {
+    margin-top: 0.75em;
+  }
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+
+  &:hover {
+    color: #0366d6;
+    text-decoration: underline;
+  }
+}
+
+small,
+.small {
+  font-size: 0.9em;
+}
+
+.light {
+  color: #858892;
+}
+
+.quote {
+  composes: light;
+  margin: 0 0 1em 0;
+  padding-left: 1em;
+  border-left: 2px solid #f2f2f2;
+}

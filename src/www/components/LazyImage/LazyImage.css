@@ -1,0 +1,40 @@
+.imageWrapper {
+  position: relative;
+  height: 0;
+
+  img {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    transition-delay: 100ms;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../css/logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2em;
+    opacity: 1;
+    transition: opacity 150ms ease;
+  }
+}
+
+.imageWrapper_loaded {
+  composes: imageWrapper;
+
+  img {
+    opacity: 1;
+  }
+
+  &:before {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,32 @@
+.spinnerWrapper {
+  composes: contentLayout from '../../css/Layout.css';
+  display: flex;
+  justify-content: center;
+  padding: 4em;
+}
+
+.spinner,
+.spinner:after {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.spinner {
+  position: relative;
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
+  border-right: 2px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  border-left: 2px solid #000;
+  transform: translateZ(0);
+  animation: load8 0.5s infinite linear;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,8 @@
+.details {
+  composes: contentLayout from '../../css/Layout.css';
+  margin-bottom: 3em;
+}
+
+.intro {
+  composes: quote from '../../css/Typography.css';
+}

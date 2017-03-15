@@ -1,0 +1,16 @@
+.content {
+  composes: contentLayout from '../../css/Layout.css';
+}
+
+.section {
+  composes: content;
+
+  & + & {
+    margin-top: 6em;
+  }
+}
+
+.section_flush {
+  composes: section;
+  padding: 0;
+}

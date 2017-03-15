@@ -1,0 +1,36 @@
+.brand {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  background: #fff;
+  padding-top: 2em;
+  overflow: hidden;
+}
+
+.brand_wrapper {
+  composes: contentLayout from '../../css/Layout.css';
+  display: flex;
+  justify-content: space-between;
+}
+
+.brand_link,
+.brand_title {
+  composes: small from '../../css/Typography.css';
+  padding: 0.5rem 0;
+}
+
+.brand_link {
+  font-weight: normal;
+  display: inline-block;
+  color: #858892;
+
+  &:hover {
+    color: #0366d6;
+  }
+}
+
+.brand_title {
+  margin: 0;
+}
