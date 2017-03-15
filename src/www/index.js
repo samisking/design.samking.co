@@ -6,9 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from './state';
 import App from './screens/App';
 
-// The element to render the client side app into
-const container = document.getElementById('app');
-
 // Render the client side app
 const renderApp = (AppComponent) => {
   render(
@@ -19,12 +16,11 @@ const renderApp = (AppComponent) => {
         </BrowserRouter>
       </AppContainer>
     </Provider>,
-    container
+    document.getElementById('app')
   );
 };
 
 if (module.hot) {
-  // require('preact/devtools');
   module.hot.accept('./screens/App', () => {
     const NextApp = require('./screens/App').default;
     renderApp(NextApp);
