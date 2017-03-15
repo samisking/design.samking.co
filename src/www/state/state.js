@@ -1,7 +1,6 @@
 const state = {
   title: '',
   currentPath: '',
-  loading: false,
   requests: [],
   requestHistory: [],
   pages: {},

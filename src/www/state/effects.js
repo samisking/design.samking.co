@@ -1,51 +1,42 @@
-import { getJSON } from 'sk-fetch-wrapper/lib/json'
+import { getJSON } from 'sk-fetch-wrapper/lib/json';
 
-const getPage = (slug) => (dispatch, getState) => {
-  const request = `/api/pages/${slug}.json`;
-
-  if (getState().requestHistory.includes(request))
-    return Promise.resolve(getState().pages[slug]);
+const makeRequest = ({ request, action, fallback }) => (dispatch,  getState) => {
+  if (getState().requestHistory.includes(request)) {
+    return Promise.resolve(fallback);
+  }
 
   dispatch({ type: 'ADD_REQUEST', request });
 
   return getJSON(request)
-    .then(page => {
-      dispatch({ type: 'RECEIVE_PAGE', slug, page });
+    .then(data => {
+      dispatch({ type: action, data });
       dispatch({ type: 'DEL_REQUEST', request });
-      return page;
+      return data;
     });
 };
 
-const getProject = (slug) => (dispatch, getState) => {
-  const request = `/api/projects/${slug}.json`;
+const getPage = slug => (dispatch, getState) => {
+  return dispatch(makeRequest({
+    request: `/api/pages/${slug}.json`,
+    action: 'RECEIVE_PAGE',
+    fallback: getState().pages[slug]
+  }));
+};
 
-  if (getState().requestHistory.includes(request))
-    return Promise.resolve(getState().projects[slug]);
-
-  dispatch({ type: 'ADD_REQUEST', request });
-
-  return getJSON(request)
-    .then(project => {
-      dispatch({ type: 'RECEIVE_PROJECT', slug, project });
-      dispatch({ type: 'DEL_REQUEST', request });
-      return project;
-    });
+const getProject = slug => (dispatch, getState) => {
+  return dispatch(makeRequest({
+    request: `/api/projects/${slug}.json`,
+    action: 'RECEIVE_PROJECT',
+    fallback: getState().projects[slug]
+  }));
 };
 
 const getProjectList = () => (dispatch, getState) => {
-  const request = `/api/projects/index.json`;
-
-  if (getState().requestHistory.includes(request))
-    return Promise.resolve(getState().projectList);
-
-  dispatch({ type: 'ADD_REQUEST', request });
-
-  return getJSON(request)
-    .then(projects => {
-      dispatch({ type: 'RECEIVE_PROJECT_LIST', projects });
-      dispatch({ type: 'DEL_REQUEST', request });
-      return projects;
-    });
+  return dispatch(makeRequest({
+    request: `/api/projects/index.json`,
+    action: 'RECEIVE_PROJECT_LIST',
+    fallback: getState().projectList
+  }));
 };
 
 const effects = {

@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
         ...state,
         pages: {
           ...state.pages,
-          [action.slug]: action.page
+          [action.data.slug]: action.data
         }
       };
 
@@ -41,14 +41,14 @@ export default (state = initialState, action) => {
         ...state,
         projects: {
           ...state.projects,
-          [action.slug]: action.project
+          [action.data.slug]: action.data
         }
       };
 
     case 'RECEIVE_PROJECT_LIST':
       return {
         ...state,
-        projectList: action.projects
+        projectList: action.data
       };
 
     default:
