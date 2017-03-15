@@ -7,6 +7,49 @@ const pages = require('./pages');
 const projects = require('./projects');
 
 const apiDir = './build/api';
+const cacheFile = './build/api/cache.json';
+
+const exists = filepath => {
+  try {
+    const stats = fs.statSync(filepath);
+    return stats;
+  } catch (err) {
+    if (err.code === 'ENOENT') return false;
+  }
+};
+
+let cacheData;
+
+if (exists(path.resolve(cacheFile))) {
+  cacheData = JSON.parse(fs.readFileSync(path.resolve(cacheFile), 'utf8'));
+} else {
+  cacheData = [];
+}
+
+const hasBeenProcessed = async file => {
+  const info = exists(file);
+  const fileInCache = cacheData.find(f => f.path === file);
+
+  if (!fileInCache || fileInCache.mtime > info.mtime) {
+    return false;
+  }
+
+  return fileInCache;
+};
+
+const writeImagesToCache = images => {
+  const cleanCache = cacheData.filter(c => images.some(i => i.path === c.path));
+
+  const withMtime = images.map(image => {
+    return {
+      path: image.path,
+      data: image.data,
+      mtime: fs.statSync(image.path).mtime
+    }
+  });
+
+  fs.writeFileSync(path.resolve(cacheFile), JSON.stringify(cleanCache.concat(withMtime)));
+};
 
 const generateFileName = file => {
   const ext = path.extname(file);
@@ -70,6 +113,7 @@ const writeToAPI = (data, subDir = '', filename) => {
 
 const run = async () => {
   const slimProjects = [];
+  const processedImages = [];
 
   // Static pages
   for (const page of Object.keys(pages)) {
@@ -89,26 +133,44 @@ const run = async () => {
     // Process the cover image
     let newCover = cover;
     if (cover && cover.startsWith('./images')) {
-      const sizes = await processImage(path.resolve(projectCtx, cover), outputDir);
+      const image = path.resolve(projectCtx, cover);
+      const processed = await hasBeenProcessed(image);
 
-      // Overwrite the image with resized data
-      newCover = {
-        ratio: sizes[0].height / sizes[0].width,
-        sizes: sizes.map(size => ([size.width, `/api/images/${project}/${size.url}`]))
-      };
+      if (!processed) {
+        const sizes = await processImage(path.resolve(projectCtx, cover), outputDir);
+
+        // Overwrite the image with resized data
+        newCover = {
+          ratio: sizes[0].height / sizes[0].width,
+          sizes: sizes.map(size => ([size.width, `/api/images/${project}/${size.url}`]))
+        };
+
+        processedImages.push({ path: image, data: newCover });
+      } else {
+        newCover = processed.data;
+      }
     }
 
     // Process the images in the project content
     let newContent = content;
     for (const contentItem of newContent) {
       if (contentItem.type === 'image' && contentItem.src.startsWith('./images')) {
-        const sizes = await processImage(path.resolve(projectCtx, contentItem.src), outputDir);
+        const image = path.resolve(projectCtx, contentItem.src);
+        const processed = await hasBeenProcessed(image);
 
-        // Overwrite the image with resized data
-        contentItem.src = {
-          ratio: sizes[0].height / sizes[0].width,
-          sizes: sizes.map(size => ([size.width, `/api/images/${project}/${size.url}`]))
-        };
+        if (!processed) {
+          const sizes = await processImage(path.resolve(projectCtx, contentItem.src), outputDir);
+
+          // Overwrite the image with resized data
+          contentItem.src = {
+            ratio: sizes[0].height / sizes[0].width,
+            sizes: sizes.map(size => ([size.width, `/api/images/${project}/${size.url}`]))
+          };
+
+          processedImages.push({ path: image, data: contentItem.src });
+        } else {
+          contentItem.src = processed.data;
+        }
       }
     }
 
@@ -130,6 +192,8 @@ const run = async () => {
   }
 
   writeToAPI(slimProjects, 'projects', 'index');
+
+  writeImagesToCache(processedImages);
 };
 
 // Make sure the `api/` folder exists inside the build folder

@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Temporary design portfolio",
   "scripts": {
-    "clean:api": "rm -rf build/api/*",
+    "clean:www": "del build/** !build/api/**",
+    "clean:api": "del build/api/** !build/api/images/** !build/api/cache.json",
+    "prebuild:www": "yarn run lint && yarn run test && yarn run clean:www",
     "prebuild:api": "yarn run clean:api",
-    "prebuild": "yarn run lint && yarn run test",
     "build": "yarn run build:www && yarn run build:api",
     "build:www": "NODE_ENV=production webpack -p --progress",
     "build:api": "VIPS_WARNING=false node --harmony-async-await src/api",
