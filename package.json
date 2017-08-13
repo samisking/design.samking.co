@@ -9,7 +9,7 @@
     "prebuild:api": "yarn run clean:api",
     "build": "yarn run build:www && yarn run build:api",
     "build:www": "NODE_ENV=production webpack -p --progress",
-    "build:api": "VIPS_WARNING=false node --harmony-async-await src/api",
+    "build:api": "VIPS_WARNING=false node src/api",
     "start": "webpack-dev-server",
     "lint": "eslint src/**/*.js",
     "test": "jest"
@@ -45,6 +45,7 @@
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-1": "^6.22.0",
     "css-loader": "^0.26.1",
+    "del-cli": "^1.1.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.16.1",
     "eslint-config-react-app": "^0.5.2",
