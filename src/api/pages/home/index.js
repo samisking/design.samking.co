@@ -36,17 +36,26 @@ const data = {
   ],
   experience: [
     {
-      date: '2016-2017',
+      date: '2017–Present',
+      role: 'Designer',
+      company: 'Deliveroo',
+      points: [
+        'Deliveroo delivers the food from restaurants you love, straight to your door.',
+        'I\'m working within the restaurants team to improve the Deliveroo experience for our restaurant partners.'
+      ]
+    },
+    {
+      date: '2016–2017',
       role: 'Designer',
       company: 'MutualArt',
       points: [
         'MutualArt aims to connect collectors of art with buyers/sellers along with providing in depth art market analysis.',
-        'Working on cleaning up the site after an agency build.',
-        'Also working on an exhibition finding app for iOS.'
+        'I worked on cleaning up the site after an agency build.',
+        'I also worked on an exhibition finding app for iOS.'
       ]
     },
     {
-      date: '2014-2016',
+      date: '2014–2016',
       role: 'Designer',
       company: 'Lyst',
       points: [
@@ -57,7 +66,7 @@ const data = {
       ]
     },
     {
-      date: '2012-2014',
+      date: '2012–2014',
       role: 'Designer',
       company: 'RetailMeNot, .Inc',
       points: [
@@ -67,7 +76,7 @@ const data = {
       ]
     },
     {
-      date: '2011-2012',
+      date: '2011–2012',
       role: 'Designer & Dev',
       company: 'Solutions',
       points: [
@@ -75,7 +84,7 @@ const data = {
       ]
     },
     {
-      date: '2010-2012',
+      date: '2010–2012',
       role: 'Freelance',
       points: [
         'Shooting photos for BMX publications and small fashion companies.',
